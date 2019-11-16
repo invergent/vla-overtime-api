@@ -6,13 +6,13 @@ addons:
     - example.com
 env:
   global:
-    - CC_TEST_REPORTER_ID=614179c3cd5043569da8a11f6744c552d24de79d0662fee7848e716e5f4cf1e8
+    - CC_TEST_REPORTER_ID=49732dc4446084d4e0b922707e35d014aa9972ed2e37c016d7af5693a8e72ae2
 language: node_js
 node_js:
   - '11.10.1'
 before_script:
   - npm install sequelize-cli -g
-  - psql -c 'create database wyc_test;' -U postgres
+  - psql -c 'create database vla_test;' -U postgres
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build

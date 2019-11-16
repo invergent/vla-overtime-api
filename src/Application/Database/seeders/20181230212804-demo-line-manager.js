@@ -57,7 +57,7 @@ module.exports = {
     idNumber: 'SN728367',
     firstname: 'Rodney',
     lastname: 'Lascap',
-    email: 'rodlas@whytecleon.com',
+    email: 'rodlas@viclawrence.com',
     phone: '08087987896',
     createdAt: new Date(),
     updatedAt: new Date()

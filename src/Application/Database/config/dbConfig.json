@@ -2,7 +2,7 @@
   "development": {
     "host": "localhost",
     "port": 5432,
-    "database": "wyc-dev",
+    "database": "vla-dev",
     "username": "jamesenejo",
     "password": null,
     "dialect": "postgres",
@@ -20,7 +20,7 @@
   "test": {
     "host": "localhost",
     "port": 5432,
-    "database": "wyc_test",
+    "database": "vla_test",
     "username": "postgres",
     "password": null,
     "dialect": "postgres",
