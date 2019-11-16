@@ -17,7 +17,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -73,7 +73,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -130,7 +130,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -187,7 +187,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -244,7 +244,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -301,7 +301,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -351,7 +351,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -401,7 +401,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -458,7 +458,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -508,7 +508,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
@@ -559,7 +559,7 @@ module.exports = {
                     <table class="header">
                       <tr>
                         <td>
-                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/whytecleon/logo.png" alt="Logo">
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
                         </td>
                       </tr>
                     </table>
