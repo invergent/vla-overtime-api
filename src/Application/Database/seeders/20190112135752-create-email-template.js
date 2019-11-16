@@ -546,7 +546,7 @@ module.exports = {
   {
     name: 'Activation Email Staff',
     description: 'Send staff login details',
-    subject: 'Welcome to CleonTime',
+    subject: 'Welcome to V-Timer',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
       <body>
@@ -567,13 +567,13 @@ module.exports = {
                     <table class="body">
                       <tr>
                         <td>
-                          <h2>Welcome to CleonTime</h2>
+                          <h2>Welcome to V-Timer</h2>
                           <table class="paragraphs">
                             <tr>
                               <td>
                                 <div>
                                   <p>Hi {{staffFirstName}},</p>
-                                  <p>We are excited to welcome you to the new <a href="{{url}}/login" target="_blank">CleonTime</a> application for managing your overtime requests.</p>
+                                  <p>We are excited to welcome you to the new <a href="{{url}}/login" target="_blank">V-Timer</a> application for managing your overtime requests.</p>
                                   <p>Below are your login details (unique to you). Please do not share!</p>
                                   <p class="no-margin">StaffId: {{staffId}}</p>
                                   <p class="no-margin">Password: {{password}}</p>

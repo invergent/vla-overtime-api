@@ -35,14 +35,14 @@ module.exports = function headerAndFooterContent(section) {
           width: 120px;
         }
         hr {
-          border: 1px solid #ec1e8d;
+          border: 1px solid #84120B;
         }
         .body {
           padding: 10px 25px 10px;
           box-sizing: border-box;
         }
         .body h2 {
-          color: #ec1e8d;
+          color: #84120B;
           margin: 20px auto;
           box-sizing: border-box;
           text-align: center;
@@ -56,7 +56,7 @@ module.exports = function headerAndFooterContent(section) {
           margin: 30px auto;
         }
         .body .button-wrapper a {
-          background-color: #ec1e8d;
+          background-color: #84120B;
           color: white;
           font-size: 16px;
           padding: 15px;
