@@ -59,13 +59,22 @@ module.exports = {
         as: 'branch'
       }
     },
-    lineManagerId: {
+    supervisorId: {
       type: Sequelize.INTEGER,
       onDelete: 'SET NULL',
       references: {
         model: 'LineManagers',
         key: 'id',
-        as: 'lineManager'
+        as: 'supervisor'
+      }
+    },
+    bsmId: {
+      type: Sequelize.INTEGER,
+      onDelete: 'SET NULL',
+      references: {
+        model: 'LineManagers',
+        key: 'id',
+        as: 'BSM'
       }
     },
     roleId: {

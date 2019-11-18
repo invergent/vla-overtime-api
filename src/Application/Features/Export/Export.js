@@ -14,7 +14,7 @@ class Export {
     try {
       const populatedWorkbook = await ExportDocHelpers.populateWorkbooksSheetWithData();
       const pathToDocument = await Export.createExcelDocument(populatedWorkbook, docType);
-      return [pathToDocument, `cleontimeReport.${docType}`];
+      return [pathToDocument, `vtimerReport.${docType}`];
     } catch (e) {
       console.log(e);
       return [500, 'An error occurred ERR500DWLEXL'];

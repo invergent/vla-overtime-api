@@ -3,15 +3,17 @@ import services from '../services';
 import { templateNames } from '../utils/types';
 
 const {
-  Mailer, NotificationsHelpers, PasswordResetHelper, ClaimHelpers
+  Mailer, PasswordResetHelper, ClaimHelpers, krypter, EmailConstructor
 } = helpers;
 const { ClaimService, ClaimApprovalHistoryService } = services;
+const {
+  Cancelled, Completed, NewClaim, EditRequested, UpdatedLineManager, FirstApproval,
+  SecondApproval, Reminder, Activation
+} = templateNames;
 
 class EmailNotifications {
-  static async sendNotificationEmail(staff, emailTemplateName, hashedToken) {
-    const email = await NotificationsHelpers.createEmail(
-      staff, emailTemplateName, hashedToken
-    );
+  static async sendNotificationEmail(emailDetails) {
+    const email = await EmailConstructor.create(emailDetails);
     return EmailNotifications.sender(email);
   }
 
@@ -21,62 +23,68 @@ class EmailNotifications {
     return EmailNotifications.sendNotificationEmail(staff, templateNames.Reset, passwordResetHash);
   }
 
-  static sendLineManagerNotifications(staff, notificationType) {
-    const [hashedToken, emailTemplateName] = NotificationsHelpers
-      .createLineManagerEmailDetails(staff, notificationType);
-    return EmailNotifications.sendNotificationEmail(staff, emailTemplateName, hashedToken);
+  static sendLineManagerNotifications(staff, templateName, lineManagerRole) {
+    const tokenPayload = { id: staff[lineManagerRole].id, role: lineManagerRole };
+    const urlToken = krypter.authenticationEncryption('lineManager', tokenPayload);
+    const emailDetails = {
+      ...staff, templateName, urlToken, directTo: lineManagerRole
+    };
+    return EmailNotifications.sendNotificationEmail(emailDetails);
   }
 
-  static sendStaffNotifications(staff, notificationType) {
-    const emailTemplateName = NotificationsHelpers.staffEmailTemplateName(notificationType);
-    return EmailNotifications.sendNotificationEmail(staff, emailTemplateName);
-  }
-
-  static async sendNotificationEmailToMany(reciepients, notificationType) {
-    const emails = await NotificationsHelpers.createMultipleEmails(
-      reciepients, notificationType
-    );
+  static async sendNotificationEmailToMany(reciepients, templateName) {
+    const emails = await EmailConstructor.createForMany(reciepients, templateName);
     return EmailNotifications.sender(emails);
   }
 
-  static notifyLineManagerOfNewClaim(staff) {
-    EmailNotifications.sendLineManagerNotifications(staff, 'NewClaimLineManager');
+  static notifySupervisorOfNewClaim(staff) {
+    EmailNotifications.sendLineManagerNotifications(staff, FirstApproval, 'supervisor');
   }
 
-  static notifyLineManagerOfUpdatedClaim(staff) {
-    EmailNotifications.sendLineManagerNotifications(staff, 'UpdatedLineManager');
+  static notifyBSMOfApprovedClaim(staff) {
+    EmailNotifications.sendLineManagerNotifications(staff, SecondApproval, 'BSM');
   }
 
-  static notifyStaffUpdatedClaim(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'UpdatedStaff');
+  static notifyLineManagerOfUpdatedClaim(staff, lineManagerRole) {
+    EmailNotifications.sendLineManagerNotifications(staff, UpdatedLineManager, lineManagerRole);
   }
+
+  // static notifyStaffUpdatedClaim(staff) {
+  //   EmailNotifications.sendNotificationEmail({ ...staff, templateName: 'UpdatedStaff' });
+  // }
 
   static notifyStaffOfClaimSubmission(staff) {
-    EmailNotifications.sendStaffNotifications(staff);
+    EmailNotifications.sendNotificationEmail({ ...staff, templateName: NewClaim });
   }
 
-  static notifyStaffLineManagerApproved(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'Approved');
-  }
-
-  static notifyStaffLineManagerDeclined(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'Declined');
+  static notifyStaffOfApproval(staff, approvalType, lineManagerRole) {
+    const emailDetails = {
+      ...staff,
+      templateName: `Line Manager ${approvalType}`,
+      currentLineManagerRole: lineManagerRole
+    };
+    EmailNotifications.sendNotificationEmail(emailDetails);
   }
 
   static notifyStaffCancelled(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'Cancelled');
+    EmailNotifications.sendNotificationEmail({ ...staff, templateName: Cancelled });
   }
 
-  static notifyStaffEditRequest(staff) {
-    EmailNotifications.sendStaffNotifications(staff, 'EditRequested');
+  static notifyStaffEditRequest(staff, lineManagerRole) {
+    const emailDetails = {
+      ...staff,
+      templateName: EditRequested,
+      currentLineManagerRole: lineManagerRole
+    };
+    EmailNotifications.sendNotificationEmail(emailDetails);
   }
 
   static remindStaffOfPendingClaim(listOfStaff) {
-    EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Reminder');
+    EmailNotifications.sendNotificationEmailToMany(listOfStaff, Reminder);
   }
 
   static sendActivationEmail(listOfStaff) {
-    EmailNotifications.sendNotificationEmailToMany(listOfStaff, 'Activation');
+    EmailNotifications.sendNotificationEmailToMany(listOfStaff, Activation);
   }
 
   static async notifyStaffCompleted() {

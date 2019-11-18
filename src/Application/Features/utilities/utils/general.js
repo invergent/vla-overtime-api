@@ -31,10 +31,13 @@ export const claimTypes = [
 ];
 
 export const notificationActivities = {
-  lineManagerApproved: 'Your claim was approved by your line manager. It is now being processed by Admin.',
-  lineManagerDeclined: 'Your claim was declined by your line manager.',
-  EditRequested: 'Your line manager requested edit on your claim submission.',
-  adminProcessed: 'Your claim has been processed. It would be credited on payday.',
+  supervisorApproved: 'Claim approved by supervisor.',
+  supervisorDeclined: 'Claim declined by supervisor.',
+  BSMApproved: 'Claim approved by BSM.',
+  BSMDeclined: 'Claim declined by BSM.',
+  supervisorEditRequested: 'Supervisor requested edit.',
+  BSMEditRequested: 'BSM requested edit.',
+  adminProcessed: 'Claim has been processed.',
   adminPaid: 'Your claim has been paid.'
 };
 

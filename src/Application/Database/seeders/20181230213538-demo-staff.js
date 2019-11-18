@@ -11,7 +11,8 @@ module.exports = {
     phone: '08065432109',
     accountNumber: '0012233432',
     branchId: 1,
-    lineManagerId: 1,
+    supervisorId: 1,
+    bsmId: 2,
     roleId: 2,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -26,7 +27,8 @@ module.exports = {
     phone: '08065468109',
     accountNumber: '0012273432',
     branchId: 2,
-    lineManagerId: 2,
+    supervisorId: 1,
+    bsmId: 2,
     roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -41,7 +43,8 @@ module.exports = {
     phone: '08098342109',
     accountNumber: '0012273495',
     branchId: 1,
-    lineManagerId: 6,
+    supervisorId: 4,
+    bsmId: 6,
     roleId: 4,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -56,7 +59,8 @@ module.exports = {
     phone: '08065432345',
     accountNumber: '0012273888',
     branchId: 2,
-    lineManagerId: 6,
+    supervisorId: 5,
+    bsmId: 6,
     roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -71,7 +75,8 @@ module.exports = {
     phone: '08065466109',
     accountNumber: '0012273654',
     branchId: 2,
-    lineManagerId: 6,
+    supervisorId: 5,
+    bsmId: 6,
     roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -86,7 +91,8 @@ module.exports = {
     phone: '08012432133',
     accountNumber: '0012273633',
     branchId: 2,
-    lineManagerId: 6,
+    supervisorId: 4,
+    bsmId: 2,
     roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -101,7 +107,8 @@ module.exports = {
     phone: '07065432209',
     accountNumber: '0012276773',
     branchId: 1,
-    lineManagerId: 1,
+    supervisorId: 4,
+    bsmId: 3,
     roleId: 5,
     createdAt: new Date(),
     updatedAt: new Date()
@@ -116,8 +123,8 @@ module.exports = {
     phone: '09065777109',
     accountNumber: '0012276767',
     branchId: 1,
-    lineManagerId: 2,
-    roleId: 4,
+    supervisorId: 4,
+    roleId: 3,
     createdAt: new Date(),
     updatedAt: new Date()
   },
@@ -146,10 +153,11 @@ module.exports = {
     extraMonthsPermitted: true,
     extraMonthsData: `{
       "permittedMonths": ["2019/06", "2019/07", "2019/08", "2019/09"],
-      "monthsApplied": []
+      "appliedMonths": []
     }`,
     changedPassword: true,
-    lineManagerId: 6,
+    supervisorId: 5,
+    bsmId: 3,
     branchId: 2,
     roleId: 4,
     createdAt: new Date(),
@@ -164,7 +172,8 @@ module.exports = {
     image: 'https://res.cloudinary.com/dbsxxymfz/image/upload/v1536757459/dummy-profile.png',
     phone: '08055552109',
     accountNumber: '0012233476',
-    lineManagerId: 4,
+    supervisorId: 4,
+    bsmId: 2,
     branchId: 2,
     roleId: 4,
     createdAt: new Date(),

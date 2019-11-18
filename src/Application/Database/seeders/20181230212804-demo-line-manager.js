@@ -6,7 +6,8 @@ module.exports = {
     email: 'super.john@init.com',
     phone: '08099887766',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'supervisor'
   },
   {
     idNumber: 'SN763553',
@@ -15,7 +16,8 @@ module.exports = {
     email: 'john.doiz@init.com',
     phone: '08076546766',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'BSM'
   },
   {
     idNumber: 'SN769873',
@@ -24,7 +26,8 @@ module.exports = {
     email: 'johnny.doey@init.com',
     phone: '08099676766',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'BSM'
   },
   {
     idNumber: 'SN760073',
@@ -33,7 +36,8 @@ module.exports = {
     email: 'jonz.super@init.com',
     phone: '08077232140',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'supervisor'
   },
   {
     idNumber: 'SN112223',
@@ -42,7 +46,8 @@ module.exports = {
     email: 'spec.en.james@gmail.com',
     phone: '08033345766',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'supervisor'
   },
   {
     idNumber: 'SN876300',
@@ -51,7 +56,8 @@ module.exports = {
     email: 'jillandroid@gmail.com',
     phone: '08090000676',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'BSM'
   },
   {
     idNumber: 'SN728367',
@@ -60,7 +66,8 @@ module.exports = {
     email: 'rodlas@viclawrence.com',
     phone: '08087987896',
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
+    role: 'supervisor'
   }]),
   down: queryInterface => queryInterface.bulkDelete('LineManagers')
 };

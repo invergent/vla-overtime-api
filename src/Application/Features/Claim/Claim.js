@@ -12,7 +12,7 @@ class Claim {
     const { currentStaff: { staffId }, body } = req;
 
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager']);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['supervisor', 'BSM']);
       const overtimeRequest = ClaimHelpers.createOvertimeRequestObject(body, staff.id);
       const { messageWhenCreated, messageWhenNotCreated } = ClaimHelpers.responseMessage(
         overtimeRequest
@@ -20,7 +20,8 @@ class Claim {
 
       const [claim, created] = await ClaimService.findOrCreateClaim(overtimeRequest);
       if (created) {
-        notifications.emit(eventNames.NewClaim, [staff.toJSON(), claim.id, activityNames.NewClaim]);
+        // the third argument (the empty string) is "line manager" but its not required here"
+        notifications.emit(eventNames.NewClaim, [staff.toJSON(), claim.id, '', activityNames.NewClaim]);
       }
 
       return created ? [201, messageWhenCreated, claim] : [409, messageWhenNotCreated, claim];
@@ -61,12 +62,13 @@ class Claim {
   }
 
   static async runApprovalAndNotifyUsers(req, approvalType) {
+    const { params: { claimId }, lineManager: { role: lineManagerRole } } = req;
     const [statusCode, message, data] = await Claim.runClaimApproval(req, approvalType);
     if (statusCode !== 200) return [statusCode, message];
 
-    const staff = await StaffService.fetchStaffByPk(data.requester, ['lineManager']);
+    const staff = await StaffService.fetchStaffByPk(data.requester, ['supervisor', 'BSM']);
     notifications.emit(
-      eventNames[`lineManager${approvalType}`], [staff.toJSON()]
+      eventNames[`${lineManagerRole}${approvalType}`], [staff.toJSON(), approvalType, lineManagerRole, claimId]
     );
 
     return [statusCode, message, data];
@@ -120,13 +122,17 @@ class Claim {
   }
 
   static async requestEdit(req) {
-    const { params: { claimId }, body: { editMessage } } = req;
+    const { params: { claimId }, body: { editMessage }, lineManager } = req;
 
     try {
       const claim = await ClaimService.findClaimByPk(claimId, ['claimer']);
-      const [updated, updatedClaim] = await ClaimService.updateClaim({ editMessage, editRequested: true }, claimId);
+      const [updated, updatedClaim] = await ClaimService.updateClaim({
+        editMessage, editRequested: true, editRequester: lineManager.role
+      }, claimId);
+
       if (updated) {
-        notifications.emit(eventNames.EditRequested, [claim.claimer.toJSON(), claimId]);
+        const staff = claim.claimer.toJSON();
+        notifications.emit(eventNames.EditRequested, [staff, lineManager.role, claimId]);
       }
       return [200, `Edit${updated ? '' : ' not'} requested.`, updatedClaim[0]];
     } catch (e) {
@@ -142,9 +148,11 @@ class Claim {
     try {
       const [updated, claim] = await ClaimService.updateClaim(body, claimId);
       if (updated) {
-        const lineManager = await LineManagerService.findLineManagerByPk(staff.lineManagerId);
-        staff.lineManager = lineManager;
-        notifications.emit(eventNames.Updated, [staff, claimId, activityNames.Updated]);
+        const lineManagerRole = claim[0].editRequester;
+        const lineManagerId = staff[`${lineManagerRole.toLowerCase()}Id`];
+        const lineManager = await LineManagerService.findLineManagerByPk(lineManagerId);
+        staff[lineManagerRole] = lineManager;
+        notifications.emit(eventNames.Updated, [staff, lineManagerRole, claimId, activityNames.Updated]);
       }
       return [200, `Claim${updated ? '' : ' not'} updated.`, claim[0]];
     } catch (e) {
