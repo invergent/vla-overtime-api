@@ -11,9 +11,9 @@
   "cloud_local": {
     "host": "localhost",
     "port": 5433,
-    "database": "cleontime",
+    "database": "vtimer",
     "username": "postgres",
-    "password": "pass",
+    "password": "password",
     "dialect": "postgres",
     "logging": false
   },
@@ -27,11 +27,11 @@
     "logging": false
   },
   "production": {
-    "host": "/cloudsql/cleontime-api:us-central1:cleontime",
+    "host": "/cloudsql/vtimer-api:us-central1:overtime",
     "port": 5432,
-    "database": "cleontime",
+    "database": "vtimer",
     "username": "postgres",
-    "password": "pass",
+    "password": "password",
     "dialect": "postgres",
     "logging": false
   }

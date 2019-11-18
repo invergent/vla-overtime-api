@@ -7,7 +7,6 @@ class ProfileUpdate {
 
     try {
       const updated = await StaffService.updateStaffInfo(requester.staffId, body);
-      
       return [updated ? 200 : 500, `Profile ${updated ? '' : 'not '}updated!`];
     } catch (e) {
       console.log(e);

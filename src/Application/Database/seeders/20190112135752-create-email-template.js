@@ -2,7 +2,7 @@ const headerAndFooterContent = require('../seederHelper/emailTemplateHeaderAndFo
 
 module.exports = {
   up: queryInterface => queryInterface.bulkInsert('EmailTemplate', [{
-    name: 'Reset Staff',
+    name: 'Reset',
     description: 'Reset passwords',
     subject: 'Password Reset',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -58,8 +58,8 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'New Claim Line Manager',
-    description: 'Notify line manager of newly submitted claim',
+    name: 'First Approval',
+    description: 'Notify supervisor of newly submitted claim',
     subject: 'New Overtime Claim Request',
     htmlMessage: `<html lang="en" dir="ltr">
       ${headerAndFooterContent('header')}
@@ -86,7 +86,7 @@ module.exports = {
                             <tr>
                               <td>
                                 <div>
-                                  <p>Dear {{lineManagerFirstName}},</p>
+                                  <p>Dear {{supervisorFirstName}},</p>
                                   <p><strong>{{staffFirstName}} {{staffLastName}}</strong> just submitted an overtime claim. Your approval is required to commence processing the claim.</p>
                                   <p>Click the button below to access all pending claims awaiting your approval.</p>
                                 </div>
@@ -115,7 +115,64 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Claim Updated Line Manager',
+    name: 'Second Approval',
+    description: 'Notify countersigning supervisor of newly submitted claim',
+    subject: 'New Overtime Claim Request',
+    htmlMessage: `<html lang="en" dir="ltr">
+      ${headerAndFooterContent('header')}
+      <body>
+        <table class="cover">
+          <tr>
+            <td>
+              <table class="content-wrapper">
+                <tr>
+                  <td>
+                    <table class="header">
+                      <tr>
+                        <td>
+                          <img src="https://res.cloudinary.com/invergent/image/upload/v1565715079/overtime/viclawrence/logo.png" alt="Logo">
+                        </td>
+                      </tr>
+                    </table>
+                    <hr>
+                    <table class="body">
+                      <tr>
+                        <td>
+                          <h2>New Overtime Claim request</h2>
+                          <table class="paragraphs">
+                            <tr>
+                              <td>
+                                <div>
+                                  <p>Dear {{BSMFirstName}},</p>
+                                  <p><strong>{{staffFirstName}} {{staffLastName}}</strong> has been approved by {{supervisorFirstName}} {{supervisorLastName}}. Your approval is required to commence processing the claim.</p>
+                                  <p>Click the button below to access all pending claims awaiting your approval.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <table class="button-wrapper">
+                            <tr>
+                              <td>
+                                <a href="{{url}}/line-manager/verify?hash={{hash}}" target="_blank">View pending claims</a>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>`,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  },
+  {
+    name: 'Claim Updated',
     description: 'Notify line manager of staff claim update',
     subject: 'Claim Updated',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -143,7 +200,7 @@ module.exports = {
                             <tr>
                               <td>
                                 <div>
-                                  <p>Dear {{lineManagerFirstName}},</p>
+                                  <p>Dear {{directToFirstName}},</p>
                                   <p><strong>{{staffFirstName}} {{staffLastName}}</strong>'s claim has been updated as requested.</p>
                                   <p>Click the button below to access all pending claims awaiting your approval.</p>
                                 </div>
@@ -172,7 +229,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'New Claim Staff',
+    name: 'New Claim',
     description: 'Notify staff of newly submitted claim',
     subject: 'Overtime Claim Request Submitted Successfully!',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -229,7 +286,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Line Manager Approved Staff',
+    name: 'Line Manager Approved',
     description: 'Notify staff when line manager approves claim',
     subject: 'Claim Request: Line Manager Approval',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -258,7 +315,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Dear {{staffFirstName}},</p>
-                                  <p>Your overtime claim request has been approved by your line manager. It is now being processed by admin.</p>
+                                  <p>Your overtime claim request has been approved by your {{currentLineManagerRole}}. {{approvalMessageLastSentence}}.</p>
                                   <p>You can click the button below to see the progress of your pending claim.</p>
                                 </div>
                               </td>
@@ -286,7 +343,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Line Manager Declined Staff',
+    name: 'Line Manager Declined',
     description: 'Notify staff when line manager declines claim',
     subject: 'Claim Request: Supervisor Approval',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -315,7 +372,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Dear {{staffFirstName}},</p>
-                                  <p>Your overtime claim request has been declined by your line manager. Please liaise with your line manager and create a new claim request if you need to.</p>
+                                  <p>Your overtime claim request has been declined by your {{currentLineManagerRole}}. Please liaise with your {{currentLineManagerRole}} and create a new claim request if you need to.</p>
                                   <p>Thank you.</p>
                                 </div>
                               </td>
@@ -336,7 +393,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Claim Cancelled Staff',
+    name: 'Claim Cancelled',
     description: 'Notify staff when staff cancels claim request',
     subject: 'Claim Request Cancelled',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -365,7 +422,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Hi {{staffFirstName}},</p>
-                                  <p>Your pending claim request was successfully cancelled. Feel free to create another claim anytime.</p>
+                                  <p>Your pending claim request was successfully cancelled. If you need to create another claim, ensure you do so while the claim request window is still open.</p>
                                   <p>Thank you.</p>
                                 </div>
                               </td>
@@ -386,7 +443,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Edit Requested Staff',
+    name: 'Edit Requested',
     description: 'Notify staff when line manager requests edit staffs claim',
     subject: 'Edit Requested',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -415,7 +472,7 @@ module.exports = {
                               <td>
                                 <div>
                                   <p>Hi {{staffFirstName}},</p>
-                                  <p>Your line manager requested edit on your pending claim. Please update your claim request as requested.</p>
+                                  <p>Your {{currentLineManagerRole}} requested edit on your pending claim. Please update your claim request as requested.</p>
                                   <p>Thank you.</p>
                                 </div>
                               </td>
@@ -443,7 +500,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Claim Completed Staff',
+    name: 'Claim Completed',
     description: 'Notify staff when claim request has been processed',
     subject: 'Claim Request Completed',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -493,7 +550,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Pending Claim Reminder Staff',
+    name: 'Pending Claim Reminder',
     description: 'Notify staff of claim yet to be approved',
     subject: 'Pending Claim Reminder',
     htmlMessage: `<html lang="en" dir="ltr">
@@ -544,7 +601,7 @@ module.exports = {
     updatedAt: new Date()
   },
   {
-    name: 'Activation Email Staff',
+    name: 'Activation Email',
     description: 'Send staff login details',
     subject: 'Welcome to V-Timer',
     htmlMessage: `<html lang="en" dir="ltr">

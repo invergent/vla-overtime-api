@@ -36,7 +36,7 @@ class Staff {
   static async profileData(req) {
     const { currentStaff, currentAdmin } = req;
     const currentUser = currentStaff || currentAdmin;
-    const includes = ['lineManager', 'role', 'branch'];
+    const includes = ['supervisor', 'BSM', 'role', 'branch'];
     
     try {
       const staffData = await StaffService.fetchStaffByPk(currentUser.id, includes);

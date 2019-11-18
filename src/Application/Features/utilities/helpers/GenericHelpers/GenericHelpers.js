@@ -5,26 +5,28 @@ import Dates from '../Dates';
 const { Claims, Staff } = models;
 
 class GenericHelpers {
-  static createUpdatePayload(approvalType) {
+  static createUpdatePayload(approvalType, lineManagerRole) {
     const payload = {};
-    if (approvalType === 'decline') {
-      payload.status = 'Declined';
+    const status = lineManagerRole === 'supervisor' ? 'Pending CS' : 'Processing';
+
+    if (approvalType === 'approve') {
+      payload.status = status;
     } else {
-      payload.status = 'Processing';
+      payload.status = 'Declined';
     }
     return payload;
   }
 
   static createLineManagerQueryOptions(lineManager) {
-    const { id } = lineManager;
+    const { id, role } = lineManager;
     const options = {
       where: { id },
       include: [{
         model: Staff,
-        as: 'subordinates',
+        as: `${role}Subordinates`,
         include: [{
           model: Claims,
-          where: { status: 'Pending', editRequested: false }
+          where: { status: `Pending ${role === 'BSM' ? 'CS' : 'SP'}`, editRequested: false }
         }]
       }]
     };
@@ -53,7 +55,7 @@ class GenericHelpers {
       include: [{
         model: Staff,
         as: 'claimer',
-        include: ['branch', 'role', 'lineManager']
+        include: ['branch', 'role', 'supervisor', 'BSM']
       }]
     };
     return options;

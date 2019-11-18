@@ -5,18 +5,31 @@ class UsersHelpers {
     } = user;
     const branch = user.branch ? user.branch.name : null;
     const role = user.role ? user.role.name : null;
-    let lineManagerIdNumber = null;
-    let lineManagerFirstName = null;
-    let lineManagerLastName = null;
-    let lineManagerPhone = null;
-    let lineManagerEmailAddress = null;
+    let supervisorIdNumber = null;
+    let supervisorFirstName = null;
+    let supervisorLastName = null;
+    let supervisorPhone = null;
+    let supervisorEmailAddress = null;
+    let bsmIdNumber = null;
+    let bsmFirstName = null;
+    let bsmLastName = null;
+    let bsmPhone = null;
+    let bsmEmailAddress = null;
     
-    if (user.lineManager) {
-      lineManagerIdNumber = user.lineManager.idNumber;
-      lineManagerFirstName = user.lineManager.firstname;
-      lineManagerLastName = user.lineManager.lastname;
-      lineManagerPhone = user.lineManager.phone;
-      lineManagerEmailAddress = user.lineManager.email;
+    if (user.supervisor) {
+      supervisorIdNumber = user.supervisor.idNumber;
+      supervisorFirstName = user.supervisor.firstname;
+      supervisorLastName = user.supervisor.lastname;
+      supervisorPhone = user.supervisor.phone;
+      supervisorEmailAddress = user.supervisor.email;
+    }
+
+    if (user.BSM) {
+      bsmIdNumber = user.BSM.idNumber;
+      bsmFirstName = user.BSM.firstname;
+      bsmLastName = user.BSM.lastname;
+      bsmPhone = user.BSM.phone;
+      bsmEmailAddress = user.BSM.email;
     }
 
     return {
@@ -34,11 +47,16 @@ class UsersHelpers {
       role,
       branch,
       changedPassword,
-      lineManagerIdNumber,
-      lineManagerFirstName,
-      lineManagerLastName,
-      lineManagerPhone,
-      lineManagerEmailAddress
+      supervisorIdNumber,
+      supervisorFirstName,
+      supervisorLastName,
+      supervisorPhone,
+      supervisorEmailAddress,
+      bsmIdNumber,
+      bsmFirstName,
+      bsmLastName,
+      bsmPhone,
+      bsmEmailAddress
     };
   }
 }

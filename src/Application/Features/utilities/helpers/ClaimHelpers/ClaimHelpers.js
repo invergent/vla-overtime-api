@@ -6,7 +6,7 @@ class ClaimHelpers {
       ...overtimeRequest,
       requester: staffId,
       amount: overtimeRequest.amount,
-      status: 'Pending'
+      status: 'Pending SP'
     };
   }
 
@@ -19,11 +19,9 @@ class ClaimHelpers {
     };
   }
 
-  static filterQueryResult(queryResult) {
-    const results = queryResult.subordinates;
-
-    if (!results.length) return [];
-    return results.reduce((pendingClaims, staffWithClaims) => {
+  static filterQueryResult(staffClaims) {
+    if (!staffClaims.length) return [];
+    return staffClaims.reduce((pendingClaims, staffWithClaims) => {
       const {
         staffId, firstname, lastname, middlename, image, Claims
       } = staffWithClaims;
@@ -72,10 +70,10 @@ class ClaimHelpers {
 
   static async pendingClaimsForlineManager(lineManager) {
     const results = await ClaimService.fetchPendingClaimsForLineManagers(lineManager);
-    console.log(results.toJSON())
-    const { firstname, lastname } = results; // line manager details
-    const filteredResults = ClaimHelpers.filterQueryResult(results.toJSON());
-    return { lineManager: { firstname, lastname }, pendingClaims: filteredResults };
+    const staffClaims = results.toJSON()[`${lineManager.role}Subordinates`];
+    const { firstname, lastname, role } = results; // line manager details
+    const filteredResults = ClaimHelpers.filterQueryResult(staffClaims);
+    return { lineManager: { firstname, lastname, role }, pendingClaims: filteredResults };
   }
 
   static async getIdsOfClaimsAssignedToLineManager(lineManager) {
@@ -106,10 +104,10 @@ class ClaimHelpers {
 
     return pendingClaim.map((claim) => {
       const {
-        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, monthOfClaim, claimElements, amount, details, editRequested, editRequester, editMessage, status, createdAt, approvalHistory
       } = claim;
       return {
-        id, monthOfClaim, claimElements, amount, details, editRequested, editMessage, status, createdAt, approvalHistory
+        id, monthOfClaim, claimElements, amount, details, editRequested, editRequester, editMessage, status, createdAt, approvalHistory
       };
     });
   }

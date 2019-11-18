@@ -12,7 +12,7 @@ class ClaimService {
       where: {
         monthOfClaim: overtimeRequest.monthOfClaim,
         requester: overtimeRequest.requester,
-        status: { [Op.like]: { [Op.any]: ['Completed', 'Processing', 'Pending'] } }
+        status: { [Op.like]: { [Op.any]: ['Completed', 'Processing', '%Pending%'] } }
       },
       defaults: overtimeRequest,
       raw: true
@@ -38,8 +38,8 @@ class ClaimService {
   }
 
   static async runClaimApproval(lineManager, claimId, approvalType) {
-    const { id: lineManagerId } = lineManager;
-    const updatePayload = GenericHelpers.createUpdatePayload(approvalType);
+    const { id: lineManagerId, role } = lineManager;
+    const updatePayload = GenericHelpers.createUpdatePayload(approvalType, role);
 
     const [updated, claim] = await ClaimService.updateClaim(updatePayload, claimId);
     const history = await ClaimApprovalHistoryService.createApprovalHistory(
@@ -61,7 +61,6 @@ class ClaimService {
   static cancelClaim(claimId, extraMonthsData) {
     const updatePayload = { status: 'Cancelled' };
     if (extraMonthsData) updatePayload.extraMonthsData = extraMonthsData;
-    console.log('the payload', updatePayload)
     return ClaimService.updateClaim(updatePayload, claimId);
   }
 

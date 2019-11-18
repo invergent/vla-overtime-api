@@ -6,33 +6,28 @@ import helpers from '../helpers';
 
 const { ClaimHelpers } = helpers;
 const { NotificationService, ClaimService } = services;
-const { lineManagerApproved, lineManagerDeclined, EditRequested } = eventNames;
+const { EditRequested } = eventNames;
 
 class InAppNotifications {
-  static notifyStaffLineManagerApproved(staff, claimId) {
-    return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerApproved);
+  static notifyStaffOfApproval(staff, approvalType, lineManagerRole, claimId) {
+    return InAppNotifications.recordAndNotifyStaff(staff, approvalType, lineManagerRole, claimId);
   }
 
-  static notifyStaffLineManagerDeclined(staff, claimId) {
-    return InAppNotifications.recordAndNotifyStaff(staff, claimId, lineManagerDeclined);
-  }
-
-  static notifyStaffEditRequest(staff, claimId) {
-    return InAppNotifications.recordAndNotifyStaff(staff, claimId, EditRequested);
+  static notifyStaffEditRequest(staff, lineManagerRole, claimId) {
+    return InAppNotifications.recordAndNotifyStaff(staff, 'EditRequested', lineManagerRole, claimId);
   }
 
   static notifyStaffCompleted() {
     return InAppNotifications.recordAndNotifyManyStaff();
   }
 
-  static recordAndNotifyStaff(staff, claimId, eventType) {
-    const type = eventType.includes('Declined') ? 'Declined' : 'Approved';
-    const message = notificationActivities[eventType];
-    
-    pusher.trigger(`${staff.staffId}`, eventType, { message });
+  static recordAndNotifyStaff(staff, approvalType, lineManagerRole, claimId) {
+    const message = notificationActivities[`${lineManagerRole}${approvalType}`];
+
+    pusher.trigger(`${staff.staffId}`, approvalType, { message });
 
     const notification = {
-      activity: message, type, userId: staff.id, claimId
+      activity: message, type: approvalType, userId: staff.id, claimId
     };
     return NotificationService.createNotification(notification);
   }
@@ -42,7 +37,7 @@ class InAppNotifications {
     const filteredListOfStaff = ClaimHelpers.filterCompletedClaims(completedClaimsWithStaff);
 
     return filteredListOfStaff.forEach((staff) => {
-      InAppNotifications.recordAndNotifyStaff(staff, staff.claimId, 'adminProcessed');
+      InAppNotifications.recordAndNotifyStaff(staff, 'Processed', 'admin', staff.claimId);
     });
   }
 }

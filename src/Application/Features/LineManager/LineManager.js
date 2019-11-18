@@ -11,7 +11,7 @@ class LineManager {
     try {
       const [lineManagerData, created] = await LineManagerService.findOrCreateLineManager(lineManagerDetails);
       const lineManager = lineManagerData.toJSON();
-      const payload = { lineManagerId: lineManager.id };
+      const payload = { [`${lineManager.role.toLowerCase()}Id`]: lineManager.id };
       await StaffService.updateStaffInfo(staffId, payload);
     
       notifications.emit(

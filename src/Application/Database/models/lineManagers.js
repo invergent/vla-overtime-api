@@ -22,11 +22,16 @@ const lineManagers = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
   });
 
   LineManagers.associate = (models) => {
-    LineManagers.hasMany(models.Staff, { as: 'subordinates', foreignKey: 'lineManagerId' });
+    LineManagers.hasMany(models.Staff, { as: 'supervisorSubordinates', foreignKey: 'supervisorId' });
+    LineManagers.hasMany(models.Staff, { as: 'BSMSubordinates', foreignKey: 'bsmId' });
   };
   return LineManagers;
 };

@@ -36,6 +36,9 @@ module.exports = {
       type: Sequelize.BOOLEAN,
       defaultValue: false
     },
+    editRequester: {
+      type: Sequelize.STRING
+    },
     editMessage: {
       type: Sequelize.TEXT
     },

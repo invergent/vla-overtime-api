@@ -3,7 +3,7 @@ module.exports = {
     name: 'Vic Lawrence & Associates Limited',
     address: 'This is the address.',
     emailAddress: 'overtime@viclawrence.com',
-    url: 'overtime.invergent-technologies.com',
+    url: 'overtime.viclawrence.com',
     createdAt: new Date(),
     updatedAt: new Date()
   }]),

@@ -25,6 +25,9 @@ const claims = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    editRequester: {
+      type: DataTypes.STRING
+    },
     editMessage: {
       type: DataTypes.TEXT
     }

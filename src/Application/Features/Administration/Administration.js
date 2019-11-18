@@ -109,7 +109,7 @@ class Administration {
   static async fetchSingleStaff(req) {
     const { params: { staffId } } = req;
     try {
-      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['lineManager', 'role', 'branch']);
+      const staff = await StaffService.findStaffByStaffIdOrEmail(staffId, ['supervisor', 'BSM', 'role', 'branch']);
       const refinedUser = UsersHelpers.refineUserData(staff);
       return [200, 'Request successful', refinedUser];
     } catch (e) {
